@@ -1,7 +1,8 @@
 import React from "react";
+import AdminLogin from "../components/Login/AdminLogin";
 
 const Login: React.FC = () => {
-  return <div>Login</div>;
+  return <AdminLogin />;
 };
 
 export default Login;

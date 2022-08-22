@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 interface form {
   type?: string;
+  w?: string;
+  b?: string;
 }
 
 export const FormContainer = styled.form`
@@ -33,8 +35,8 @@ export const LabelInput = styled.div`
 export const DataInput = styled.input<form>`
   type: ${({ type }) => (type ? type : "text")};
   outline: none;
-  width: 100%;
-  border: 1px solid #55555550;
+  width: ${({ w }) => (w ? w : "100%")};
+  border: ${({ b }) => (b ? b : "1px solid #55555550")};
   border-radius: 5px;
   background: #ecf0f4;
   padding: 0.5rem 1rem;
@@ -69,6 +71,7 @@ export const RegisterButton = styled.button`
   width: 50%;
   margin-top: 2rem;
   cursor: pointer;
+  type: submit;
 
   &:hover {
     box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2),

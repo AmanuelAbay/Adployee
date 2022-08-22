@@ -15,9 +15,13 @@ import {
 import { MdOutlineDashboard } from "react-icons/md";
 import { AiOutlineUsergroupDelete } from "react-icons/ai";
 import { BiGroup } from "react-icons/bi";
+import { useLocation } from "react-router-dom";
 
 // https://res.cloudinary.com/amanuel/image/upload/v1661031755/addissoftware/logo-removebg-preview_i094qa.png
 const Navbar: React.FC = () => {
+  const location = useLocation();
+  console.log(location.pathname);
+
   return (
     <NavbarContainer>
       <UpperNavBar>
@@ -35,37 +39,36 @@ const Navbar: React.FC = () => {
           <NavName>Amanuel Abay</NavName>
           <NavProfileRole>Admin</NavProfileRole>
         </NavbarProfile>
-        <div>
-          <NavName
-            mt="4rem"
-            width="100%"
-            alignment="center"
-            size="1rem"
-            fw="medium"
-            pl="7%"
-          >
-            MAIN
-          </NavName>
-        </div>
       </UpperNavBar>
       <NavbarList>
         {/* <NavbarItem> */}
-        <NavLinks href="/">
+        <NavLinks
+          background={location.pathname === "/" ? "#ecf0f4" : "transparent"}
+          href="/"
+        >
           <MdOutlineDashboard
             style={{ background: "transparent" }}
             size="1.1rem"
           />
           Dashboard
         </NavLinks>
-        {/* </NavbarItem> */}
-        {/* <NavbarItem> */}
-        <NavLinks href="/employees">
+        <NavLinks
+          background={
+            location.pathname === "/employees" ? "#ecf0f4" : "transparent"
+          }
+          href="/employees"
+        >
           <BiGroup size="1.1rem" style={{ background: "transparent" }} />
           Employees
         </NavLinks>
-        {/* </NavbarItem>
-        <NavbarItem> */}
-        <NavLinks href="/removed_employees">
+        <NavLinks
+          background={
+            location.pathname === "/removed_employees"
+              ? "#ecf0f4"
+              : "transparent"
+          }
+          href="/removed_employees"
+        >
           <AiOutlineUsergroupDelete
             size="1.1rem"
             style={{ background: "transparent" }}
