@@ -9,6 +9,25 @@ interface Text {
   mt?: string;
 }
 
+interface TextFormat {
+  fs?: string;
+  fw?: string;
+  color?: string;
+  type?: string;
+}
+
+interface Props {
+  mb?: string;
+  margin?: string;
+  mt?: string;
+  color?: string;
+}
+
+interface Display {
+  width?: string;
+  p?: string;
+}
+
 const GlobalStyle = createGlobalStyle`
 * {
     box-sizing: border-box;
@@ -17,6 +36,30 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Poppins', sans-serif;
     background: #ecf0f4;
 }
+`;
+
+export const Heading = styled.h2<Props>`
+  font-size: 20px;
+  font-weight: 400;
+  margin: ${({ margin }) => (margin ? margin : "")};
+  margin-bottom: ${({ mb }) => (mb ? mb : "")};
+  margin-top: ${({ mt }) => (mt ? mt : "")};
+  color: ${({ color }) => (color ? color : "#000")};
+  text-align: start;
+`;
+
+export const DisplayArea = styled.div<Display>`
+  width: ${({ width }) => (width ? width : "90%")};
+  height: ${({ width }) => (width ? "100vh" : "auto")};
+  background: #fff;
+  border-radius: 7px;
+  margin-top: 2rem;
+  box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2),
+    4px 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: ${({ p }) => (p ? p : "0.6rem 0.2rem 0.2rem 0.2rem")};
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;
 
 export const NavbarContainer = styled.div`
@@ -244,5 +287,14 @@ export const Divider = styled.div`
 //     color: black;
 //   }
 // `;
+
+export const NormalText = styled.label<TextFormat>`
+  font-size: ${({ fs }) => (fs ? fs : "")};
+  font-weight: ${({ fw }) => (fw ? fw : "")};
+  color: ${({ color }) => (color ? color : "")};
+  text-transform: ${({ type }) =>
+    type === "email" ? "lowercaser" : "capitalize"};
+  background: transparent;
+`;
 
 export default GlobalStyle;

@@ -1,26 +1,10 @@
 import styled from "styled-components";
-interface Props {
-  mb?: string;
-  margin?: string;
-  mt?: string;
-  color?: string;
-}
 
 interface textsize {
   s?: string;
   color?: string;
   ml?: string;
 }
-
-export const Heading = styled.h2<Props>`
-  font-size: 20px;
-  font-weight: 400;
-  margin: ${({ margin }) => (margin ? margin : "")};
-  margin-bottom: ${({ mb }) => (mb ? mb : "")};
-  margin-top: ${({ mt }) => (mt ? mt : "")};
-  color: ${({ color }) => (color ? color : "#000")};
-  text-align: start;
-`;
 
 export const CardWrapper = styled.div`
   width: 100%;
@@ -62,16 +46,4 @@ export const Text = styled.div<textsize>`
   margin-left: ${({ ml }) => (ml ? ml : "")};
 `;
 
-export const GraphDisplay = styled.div`
-  width: 90%;
-  height: auto;
-  background: #fff;
-  border-radius: 7px;
-  margin-top: 2rem;
-  box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2),
-    4px 6px 20px 0 rgba(0, 0, 0, 0.19);
-  padding: 0.6rem 0.2rem 0.2rem 0.2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
+

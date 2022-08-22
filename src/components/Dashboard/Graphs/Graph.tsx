@@ -8,6 +8,7 @@ const TasksChart: React.FC = () => {
   const options = {
     chart: {
       background: "#fff",
+      width: "100%",
       zoom: {
         enabled: true,
       },

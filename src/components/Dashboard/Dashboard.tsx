@@ -1,13 +1,7 @@
 import React from "react";
-import { Container } from "../../globalStyles";
-import {
-  Cards,
-  CardText,
-  CardWrapper,
-  GraphDisplay,
-  Heading,
-  Text,
-} from "./dashboardStyles";
+import { Container, DisplayArea } from "../../globalStyles";
+import { Cards, CardText, CardWrapper, Text } from "./dashboardStyles";
+import { Heading } from "../../globalStyles";
 import { BiGroup } from "react-icons/bi";
 import { AiOutlineUsergroupDelete } from "react-icons/ai";
 import { BiUserPlus } from "react-icons/bi";
@@ -72,13 +66,12 @@ const Dashboard: React.FC = () => {
           </CardText>
         </Cards>
       </CardWrapper>
-      <GraphDisplay>
+      <DisplayArea>
         <Text s="17px" ml="1rem" color="#555555">
           Salary Expenses
         </Text>
         <Graph />
-      </GraphDisplay>
-      {/* graph section  */}
+      </DisplayArea>
     </Container>
   );
 };

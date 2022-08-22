@@ -16,11 +16,11 @@ const App: React.FC = () => {
         <Navbar />
         <Divider>
           <Routes>
+            <Route path="*" element={<NotFound />} />
             <Route path="/" element={<Dashboard />} />
             <Route path="login" element={<Login />} />
             <Route path="employees" element={<Employees />} />
             <Route path="removed_employees" element={<RemovedEmployee />} />
-            <Route path="notfound" element={<NotFound />} />
           </Routes>
         </Divider>
       </Layout>
