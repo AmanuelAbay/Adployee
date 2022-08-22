@@ -14,6 +14,12 @@ interface TextFormat {
   fw?: string;
   color?: string;
   type?: string;
+  mt?: string;
+  ff?: string;
+}
+
+interface scale {
+  w?: string;
 }
 
 interface Props {
@@ -102,8 +108,8 @@ export const NavbarCompanyDesc = styled.div`
   cursor: pointer;
 `;
 
-export const NavbarLogo = styled.img`
-  width: 6rem;
+export const NavbarLogo = styled.img<scale>`
+  width: ${({ w }) => (w ? w : "6rem")};
   height: auto;
   background: #fff;
 `;
@@ -205,6 +211,8 @@ export const NormalText = styled.label<TextFormat>`
   text-transform: ${({ type }) =>
     type === "email" ? "lowercaser" : "capitalize"};
   background: transparent;
+  margin-top: ${({ mt }) => (mt ? mt : "")};
+  font-family: ${({ ff }) => (ff ? ff : "")}; 
 `;
 
 export default GlobalStyle;
