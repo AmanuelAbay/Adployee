@@ -15,7 +15,6 @@ export const TableRow = styled.tr`
   display: table-row;
   align-items: center;
   background: transparent;
-
   &:hover {
     background: #ecf0f4;
   }
