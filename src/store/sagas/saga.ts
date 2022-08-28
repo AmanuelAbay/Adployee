@@ -1,36 +1,25 @@
 import { AxiosResponse } from "axios";
-import { takeEvery, put, call, take, StrictEffect } from "redux-saga/effects";
+import { takeEvery, put, call, StrictEffect } from "redux-saga/effects";
 import employeeApi from "../../api/employee-api";
-import { useAppDispatch } from "../hooks";
-import { addEmployee, employee } from "../slice/employeeSlice";
 import { PayloadAction } from "@reduxjs/toolkit";
-// import { employee } from '../types/storeType';
-import saga from "redux-saga";
-// watchers
+import {
+  addEmployee,
+  employee,
+  getEmployeesFailure,
+  getEmployeesSuccess,
+} from "../slice/employeeSlice";
 
 function* employeeSaga(): Generator<StrictEffect> {
-  yield takeEvery(addEmployee, createEmployee);
-  // yield takeEvery("getEmployee", getEmployee);
+  yield takeEvery("employees/getEmployeesFetch", getEmployeesFetch);
 }
 
-// workers
-
-function* createEmployee(action: PayloadAction<employee>) {
+function* getEmployeesFetch(action: PayloadAction<employee>) {
   try {
-    console.log("creating...");
-    const response: AxiosResponse = yield call(employeeApi.post, "employee", action.payload);
-    // console.log("this is called and saga is working well");
-    switch (response.status) {
-      case 200:
-        console.log("done!")
-        console.log(response.data);
-      // yield put(response.data.data.employee);
-    }
+    const { data }: AxiosResponse = yield call(employeeApi.get, "employee");
+    yield put(getEmployeesSuccess(data));
   } catch (error) {
-    console.log(error);
+    yield put(getEmployeesFailure((error as Error).message));
   }
 }
-
-function* getEmployee() {}
 
 export default employeeSaga;
