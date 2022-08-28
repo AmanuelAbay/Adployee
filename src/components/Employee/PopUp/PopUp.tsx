@@ -2,16 +2,23 @@ import React from "react";
 import { PopUpContainer } from "./popupStyles";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Form from "../Form/NewForm";
-import EditForm from "../Form/EditForm";
 import Detail from "../EmployeeDetail/Detail";
 import Confirmation from "../DeleteConfirmation/Confirmation";
+import { employee } from "../../../store/slice/employeeSlice";
 
 interface Props {
   closePopUp: React.Dispatch<React.SetStateAction<boolean>>;
   component: string;
+  isEditMode: boolean;
+  user: employee | undefined;
 }
 
-const PopUp: React.FC<Props> = ({ closePopUp, component }) => {
+const PopUp: React.FC<Props> = ({
+  closePopUp,
+  component,
+  isEditMode,
+  user,
+}) => {
   return (
     <PopUpContainer>
       <AiOutlineCloseCircle
@@ -26,15 +33,11 @@ const PopUp: React.FC<Props> = ({ closePopUp, component }) => {
         size="2rem"
         onClick={() => closePopUp(false)}
       />
-      {component === "edit" && <EditForm />}
-      {component === "new" && <Form />}
-      {component === "detail" && <Detail />}
-      {component === "delete" && <Confirmation closePopUp={closePopUp} />}
-      {/* if component == form then display registry form */}
-      {/* if component == edit employee the display edit form */}
-      {/* if component == delete display delete confirmatioin message */}
-      {/* if component == detail the display full employee detail information */}
-      {/* <div>popup</div> */}
+      {component === "form" && (
+        <Form isEditMode={isEditMode} user={user} closePopUp={closePopUp} />
+      )}
+      {component === "detail" && <Detail user={user} />}
+      {component === "delete" && <Confirmation user={user} closePopUp={closePopUp} />}
     </PopUpContainer>
   );
 };

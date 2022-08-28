@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FormEvent, useState } from "react";
 import { NormalText } from "../../../globalStyles";
 import {
   FormContainer,
@@ -9,8 +9,37 @@ import {
   LabelInput,
   RegisterButton,
 } from "./form";
+import isNotValid from "../../../utils/formValidationError";
+import {
+  addEmployeeStart,
+  employee,
+  updateEmployeeStart,
+} from "../../../store/slice/employeeSlice";
+import { useAppDispatch } from "../../../store/hooks";
+export interface employeeForm {
+  profile_img: string;
+  full_name: string;
+  date_of_birth: string;
+  gender: string;
+  salary: number;
+  email: string;
+  address: string;
+  joined_date: string;
+  position: string;
+}
 
-const AddNew: React.FC = () => {
+interface Props {
+  isEditMode: boolean;
+  user: employee | undefined;
+  closePopUp: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const AddNew: React.FC<Props> = ({ isEditMode, user, closePopUp }) => {
+  const [formData, updateFormData] = useState<any>(user);
+  const [error, updateError] = useState<string>();
+  const [isInvalid, updateIsInvalid] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+
   const today = () => {
     var today = new Date();
     var dd = today.getDate();
@@ -26,28 +55,67 @@ const AddNew: React.FC = () => {
       str_mm = "0" + mm;
     } else str_mm += mm;
     str_today = yyyy + "-" + str_mm + "-" + str_dd;
-    console.log(str_today);
-    console.log("this is today");
     return str_today;
   };
 
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const isDataValid = isNotValid(formData);
+    if (!isDataValid.value) {
+      // send request
+      if (isEditMode) {
+        dispatch(
+          updateEmployeeStart({
+            id: user?._id,
+            data: formData,
+          })
+        );
+      } else {
+        dispatch(addEmployeeStart(formData));
+      }
+      closePopUp(false);
+      updateIsInvalid(false);
+    } else {
+      updateIsInvalid(true);
+      updateError(isDataValid.error);
+    }
+  };
   return (
-    <FormContainer>
+    <FormContainer onSubmit={onSubmit}>
       <NormalText fs="17px" color="#000">
-        Register new Employee
+        {isEditMode ? "Edit Employee Information" : "Register New Employee"}
       </NormalText>
       <RowForms>
         <LabelInput>
           <NormalText fs="10px" color="#000">
             Name
           </NormalText>
-          <DataInput placeholder="Jhon Doe" required />
+          <DataInput
+            id="full_name"
+            name="full_name"
+            placeholder="Jhon Doe"
+            defaultValue={isEditMode ? user?.full_name : undefined}
+            onChange={(e) =>
+              updateFormData({ ...formData, full_name: e.target.value })
+            }
+            required
+          />
         </LabelInput>
         <LabelInput>
           <NormalText fs="10px" color="#000">
             Email
           </NormalText>
-          <DataInput placeholder="example@gmail.com" type="email" required />
+          <DataInput
+            name="email"
+            placeholder="example@gmail.com"
+            type="email"
+            required
+            defaultValue={isEditMode ? user?.email : undefined}
+            id="email"
+            onChange={(e) =>
+              updateFormData({ ...formData, email: e.target.value })
+            }
+          />
         </LabelInput>
       </RowForms>
       <RowForms>
@@ -55,13 +123,32 @@ const AddNew: React.FC = () => {
           <NormalText fs="10px" color="#000">
             Salary
           </NormalText>
-          <DataInput placeholder="0000" required type="number" min="1" />
+          <DataInput
+            name="salary"
+            placeholder="0000"
+            required
+            defaultValue={isEditMode ? user?.salary : undefined}
+            type="number"
+            min={1}
+            id="salary"
+            onChange={(e) =>
+              updateFormData({ ...formData, salary: e.target.valueAsNumber })
+            }
+          />
         </LabelInput>
         <LabelInput>
           <NormalText fs="10px" color="#000">
             Position
           </NormalText>
-          <DataInput placeholder="Software engineer..." />
+          <DataInput
+            name="position"
+            placeholder="Software engineer..."
+            required
+            defaultValue={isEditMode ? user?.position : undefined}
+            onChange={(e) =>
+              updateFormData({ ...formData, position: e.target.value })
+            }
+          />
         </LabelInput>
       </RowForms>
       <RowForms>
@@ -69,7 +156,15 @@ const AddNew: React.FC = () => {
           <NormalText fs="10px" color="#000">
             Gender
           </NormalText>
-          <Select name="gender" required defaultValue="">
+          <Select
+            required
+            defaultValue={isEditMode ? user?.gender : ""}
+            id="gender"
+            name="gender"
+            onChange={(e) =>
+              updateFormData({ ...formData, gender: e.target.value })
+            }
+          >
             <Option value="" disabled>
               Gender
             </Option>
@@ -81,7 +176,17 @@ const AddNew: React.FC = () => {
           <NormalText fs="10px" color="#000">
             Birth date
           </NormalText>
-          <DataInput type="date" required max={today()} />
+          <DataInput
+            name="date_of_birth"
+            id="date_of_birth"
+            type="date"
+            required
+            defaultValue={isEditMode ? user?.date_of_birth : undefined}
+            max={today()}
+            onChange={(e) =>
+              updateFormData({ ...formData, date_of_birth: e.target.value })
+            }
+          />
         </LabelInput>
       </RowForms>
       <RowForms>
@@ -89,16 +194,38 @@ const AddNew: React.FC = () => {
           <NormalText fs="10px" color="#000">
             Joined Date
           </NormalText>
-          <DataInput type="date" required max={today()} />
+          <DataInput
+            name="joined_date"
+            type="date"
+            id="joined_date"
+            required
+            defaultValue={isEditMode ? user?.joined_date : undefined}
+            max={today()}
+            onChange={(e) =>
+              updateFormData({ ...formData, joined_date: e.target.value })
+            }
+          />
         </LabelInput>
         <LabelInput>
           <NormalText fs="10px" color="#000">
             Address
           </NormalText>
-          <DataInput placeholder="Address" />
+          <DataInput
+            name="address"
+            id="address"
+            placeholder="Address"
+            required
+            defaultValue={isEditMode ? user?.address : undefined}
+            onChange={(e) =>
+              updateFormData({ ...formData, address: e.target.value })
+            }
+          />
         </LabelInput>
       </RowForms>
-      <RegisterButton type="submit">Register</RegisterButton>
+      {isInvalid && <div style={{ color: "red" }}>{error}</div>}
+      <RegisterButton type="submit">
+        {isEditMode ? "Update" : "Register"}
+      </RegisterButton>
     </FormContainer>
   );
 };

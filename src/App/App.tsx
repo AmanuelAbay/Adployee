@@ -7,7 +7,14 @@ import NotFound from "../pages/PageNotFound";
 import RemovedEmployee from "../pages/RemovedEmployee";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../store/hooks";
-import { getEmployeesFetch, getEmployee } from "../store/slice/employeeSlice";
+import {
+  getEmployeesFetch,
+  getEmployee,
+  // addEmployeeStart,
+  deleteEmployeeStart,
+  updateEmployeeStart,
+} from "../store/slice/employeeSlice";
+import { ToastContainer } from "react-toastify";
 
 const App: React.FC = () => {
   const employees = useAppSelector(getEmployee);
@@ -17,50 +24,47 @@ const App: React.FC = () => {
     dispatch(getEmployeesFetch());
   }, [dispatch]);
 
-  const handleCreate = () => {
+  const handleUpdate = () => {
     console.log("increment by 1 is done");
-    // dispatch(
-    //   addEmployee({
-    //     // id: "idididid",
-    //     profile_img: "image_link",
-    //     full_name: "Yonas Teshome",
-    //     date_of_birth: "03/05/2000",
-    //     gender: "male",
-    //     salary: 25000,
-    //     email: "hahaha@gmail.com",
-    //     address: "123 Main Street",
-    //     joined_date: "25/08/2000",
-    //     position: "Manager",
-    //   })
-    // );
+    dispatch(
+      updateEmployeeStart({
+        id: "630b33b690bb05959823bf77",
+        data: {
+          // id: "idididid",
+          profile_img: "image_link",
+          full_name: "Janderebaw",
+          date_of_birth: "03/05/2010",
+          gender: "male",
+          salary: 40000,
+          email: "andualembeguno@outlook.com",
+          address: "123 Main Street",
+          joined_date: "25/08/2000",
+          position: "Developer",
+        },
+      })
+    );
   };
 
   const handleDecrement = () => {
-    console.log("decrement by 1 is done");
-    // dispatch(
-    //   updateEmployee({
-    //     id: "idididid",
-    //     employee: {
-    //       id: "idididid",
-    //       full_name: "Esayas",
-    //       salary: 3000,
-    //       date_of_birth: "2020/01/11",
-    //       gender: "male",
-    //     },
-    //   })
-    // );
+    console.log("removing employee");
+    dispatch(deleteEmployeeStart("630902c528d78345ec88da55"));
   };
 
   const handleDisplay = () => {
-    console.log("now then state data is ");
-    console.log(employees);
+    console.log(employees.employees);
   };
 
   return (
     <div>
-      <button onClick={handleCreate}>create employee</button>
+      <button onClick={handleUpdate}>update employee</button>
       <button onClick={handleDisplay}>display employee</button>
       <button onClick={handleDecrement}>Delete employee</button>
+      <ToastContainer
+        toastStyle={{ backgroundColor: "#2a2a67", height: 20 }}
+        hideProgressBar={true}
+        position="top-right"
+        autoClose={5000}
+      />
       <Router>
         <GlobalStyle />
         <Routes>

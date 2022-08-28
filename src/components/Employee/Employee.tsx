@@ -13,19 +13,30 @@ import { IoMdAdd } from "react-icons/io";
 import { AiOutlineSearch } from "react-icons/ai";
 import Table from "./Table/Table";
 import PopUp from "./PopUp/PopUp";
+import { employee } from '../../store/slice/employeeSlice';
 
 const Employee: React.FC = () => {
   const [addPopUp, setAddPopUp] = useState<boolean>(false);
   const [component, setComponent] = useState("");
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [user, setUser] = useState<employee>();
 
   const addEmployee = (e: any) => {
-    setComponent("new");
+    setComponent("form");
+    setIsEditMode(false);
     setAddPopUp(true);
   };
 
   return (
     <Container>
-      {addPopUp && <PopUp closePopUp={setAddPopUp} component={component} />}
+      {addPopUp && (
+        <PopUp
+          closePopUp={setAddPopUp}
+          isEditMode={isEditMode}
+          component={component}
+          user={user}
+        />
+      )}
       <Heading mt="2rem">Employee</Heading>
       <DisplayArea width="98%" p="1rem">
         <SearchBar>
@@ -66,7 +77,12 @@ const Employee: React.FC = () => {
             </ToolTipText>
           </ToolTips>
         </SearchBar>
-        <Table setAddPopUp={setAddPopUp} setComponent={setComponent} />
+        <Table
+          setAddPopUp={setAddPopUp}
+          setIsEditMode={setIsEditMode}
+          setComponent={setComponent}
+          setUser={setUser}
+        />
       </DisplayArea>
     </Container>
   );

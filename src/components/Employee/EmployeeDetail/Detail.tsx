@@ -9,20 +9,28 @@ import {
 } from "./detailStyles";
 
 import { MdDateRange, MdOutlineEmail } from "react-icons/md";
-import { BsGenderMale } from "react-icons/bs";
+import { BsGenderFemale, BsGenderMale } from "react-icons/bs";
 import { BiDollarCircle } from "react-icons/bi";
 import { ImEnter } from "react-icons/im";
 import { FaAddressCard } from "react-icons/fa";
+import { employee } from "../../../store/slice/employeeSlice";
 
-const Detail: React.FC = () => {
+interface Props {
+  user: employee | undefined;
+}
+
+const Detail: React.FC<Props> = ({ user }) => {
   return (
     <DetailWrapper>
       <ProfileContainer>
         <img
-          src="
-          https://minimaltoolkit.com/images/randomdata/male/20.jpg
-            "
+          src={
+            user?.profile_img
+              ? user?.profile_img
+              : "https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744004?k=20&m=1016744004&s=612x612&w=0&h=Z4W8y-2T0W-mQM-Sxt41CGS16bByUo4efOIJuyNBHgI="
+          }
           width="95px"
+          height="95px"
           style={{
             borderRadius: "3rem",
           }}
@@ -30,18 +38,28 @@ const Detail: React.FC = () => {
         />
         <NamePositionContainer>
           <NormalText fs="13" fw="400" color="#000">
-            Amanuel Abay
-            <BsGenderMale
-              style={{
-                background: "transparent",
-                color: "black",
-              }}
-              size="1.5rem"
-            />
+            {user?.full_name}
+            {user?.gender === "male" ? (
+              <BsGenderMale
+                style={{
+                  background: "transparent",
+                  color: "black",
+                }}
+                size="1.5rem"
+              />
+            ) : (
+              <BsGenderFemale
+                style={{
+                  background: "transparent",
+                  color: "black",
+                }}
+                size="1.5rem"
+              />
+            )}
           </NormalText>
           <Badge>
             <NormalText fs="10" fw="400" color="#7ec581">
-              Manager
+              {user?.position}
             </NormalText>
           </Badge>
         </NamePositionContainer>
@@ -54,7 +72,7 @@ const Detail: React.FC = () => {
           }}
           size="1.5rem"
         />
-        <NormalText fs="10"> 22/08/2022</NormalText>
+        <NormalText fs="10"> {user?.date_of_birth}</NormalText>
       </Information>
       <Information>
         <MdOutlineEmail
@@ -65,8 +83,7 @@ const Detail: React.FC = () => {
           size="1.5rem"
         />
         <NormalText fs="10" type="email">
-          {" "}
-          amanab.449@gmail.com
+          {user?.email}
         </NormalText>
       </Information>
       <Information>
@@ -77,7 +94,7 @@ const Detail: React.FC = () => {
           }}
           size="1.5rem"
         />
-        <NormalText fs="10"> 15,000ETB </NormalText>
+        <NormalText fs="10"> {user?.salary}ETB </NormalText>
       </Information>
       <Information>
         <ImEnter
@@ -87,7 +104,7 @@ const Detail: React.FC = () => {
           }}
           size="1.5rem"
         />
-        <NormalText fs="10"> 12/08/2022 </NormalText>
+        <NormalText fs="10"> {user?.joined_date} </NormalText>
       </Information>
       <Information>
         <FaAddressCard
@@ -97,7 +114,7 @@ const Detail: React.FC = () => {
           }}
           size="1.5rem"
         />
-        <NormalText fs="10"> Saris, Addis Ababa </NormalText>
+        <NormalText fs="10"> {user?.address} </NormalText>
       </Information>
     </DetailWrapper>
   );

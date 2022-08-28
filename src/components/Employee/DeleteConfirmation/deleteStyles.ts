@@ -2,12 +2,13 @@ import styled from "styled-components";
 
 interface confirmation {
   color?: string;
+  tcolor?: string;
 }
 
 export const DeleteLayout = styled.div`
   display: flex;
   flex-direction: column;
-  width: 20%;
+  width: 25%;
   align-items: center;
   padding: 1rem 2rem;
   text-align: center;
@@ -16,11 +17,11 @@ export const DeleteLayout = styled.div`
 
 export const Buttons = styled.button<confirmation>`
   background: ${({ color }) => color};
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.5rem;
   border: ${({ color }) => `1px solid ${color}`};
   outline: none;
   border-radius: 5px;
-  color: black;
+  color: ${({ tcolor }) => tcolor ? tcolor : "black"};
   width: 45%;
   margin-top: 2rem;
   cursor: pointer;

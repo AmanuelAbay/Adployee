@@ -20,7 +20,6 @@ import { useLocation } from "react-router-dom";
 // https://res.cloudinary.com/amanuel/image/upload/v1661031755/addissoftware/logo-removebg-preview_i094qa.png
 const Navbar: React.FC = () => {
   const location = useLocation();
-  console.log(location.pathname);
 
   return (
     <NavbarContainer>

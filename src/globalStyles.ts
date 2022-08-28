@@ -73,7 +73,7 @@ export const Heading = styled.h2<Props>`
 
 export const DisplayArea = styled.div<Display>`
   width: ${({ width }) => (width ? width : "90%")};
-  height: ${({ width }) => (width ? "100vh" : "auto")};
+  height: auto;
   background: #fff;
   border-radius: 7px;
   margin-top: 2rem;
