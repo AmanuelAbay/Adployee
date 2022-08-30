@@ -3,11 +3,13 @@ import { Container, DisplayArea } from "../../globalStyles";
 import { Cards, CardText, CardWrapper, Text } from "./dashboardStyles";
 import { Heading } from "../../globalStyles";
 import { BiGroup } from "react-icons/bi";
-import { AiOutlineUsergroupDelete } from "react-icons/ai";
-import { BiUserPlus } from "react-icons/bi";
 import Graph from "./Graphs/Graph";
+import { useAppSelector } from "../../store/hooks";
+import { getEmployee } from "../../store/slice/employeeSlice";
 
 const Dashboard: React.FC = () => {
+  const employees = useAppSelector(getEmployee);
+
   return (
     <Container>
       <Heading mt="2rem">Dashboard</Heading>
@@ -25,44 +27,8 @@ const Dashboard: React.FC = () => {
             }}
           />
           <CardText>
-            <Text s="23px">250</Text>
+            <Text s="23px">{employees.employees.length}</Text>
             <Text color="#555555">Total Employee</Text>
-          </CardText>
-        </Cards>
-        <Cards>
-          <AiOutlineUsergroupDelete
-            size="2.5rem"
-            style={{
-              position: "absolute",
-              top: "-1rem",
-              left: "0.5rem",
-              border: "1px solid #55555550",
-              borderRadius: "5px",
-              color: "#555555",
-              background: "#ff000080",
-            }}
-          />
-          <CardText>
-            <Text s="23px">3</Text>
-            <Text color="#555555">Removed Employee</Text>
-          </CardText>
-        </Cards>
-        <Cards>
-          <BiUserPlus
-            size="2.5rem"
-            style={{
-              position: "absolute",
-              top: "-1rem",
-              left: "0.5rem",
-              border: "1px solid #55555550",
-              borderRadius: "5px",
-              color: "#555",
-              background: "#00ff0080",
-            }}
-          />
-          <CardText>
-            <Text s="23px">+13</Text>
-            <Text color="#555555">New Employee</Text>
           </CardText>
         </Cards>
       </CardWrapper>

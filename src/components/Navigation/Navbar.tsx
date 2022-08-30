@@ -13,13 +13,15 @@ import {
   UpperNavBar,
 } from "../../globalStyles";
 import { MdOutlineDashboard } from "react-icons/md";
-import { AiOutlineUsergroupDelete } from "react-icons/ai";
 import { BiGroup } from "react-icons/bi";
 import { useLocation } from "react-router-dom";
+import { useAppSelector } from "../../store/hooks";
+import { getUser } from "../../store/slice/authSlice";
 
 // https://res.cloudinary.com/amanuel/image/upload/v1661031755/addissoftware/logo-removebg-preview_i094qa.png
 const Navbar: React.FC = () => {
   const location = useLocation();
+  const user = useAppSelector(getUser);
 
   return (
     <NavbarContainer>
@@ -34,15 +36,15 @@ const Navbar: React.FC = () => {
           </NavbarCompanyDesc>
         </a>
         <NavbarProfile>
-          <NavbarImg src="https://xsgames.co/randomusers/assets/avatars/male/76.jpg" />
-          <NavName>Amanuel Abay</NavName>
+          <NavbarImg src="https://media-exp1.licdn.com/dms/image/C4E0BAQHurifakT9r2g/company-logo_200_200/0/1658769689927?e=2147483647&v=beta&t=zb-Tkcb83nWllnPe_sB5d6I_AECqvnMMuNQpyWuqzis" />
+          <NavName>{user.admin?.name}</NavName>
           <NavProfileRole>Admin</NavProfileRole>
         </NavbarProfile>
       </UpperNavBar>
       <NavbarList>
         {/* <NavbarItem> */}
         <NavLinks
-          background={location.pathname === "/" ? "#ecf0f4" : "transparent"}
+          background={location.pathname === "/" ? "#dee2e6" : "transparent"}
           href="/"
         >
           <MdOutlineDashboard
@@ -53,26 +55,12 @@ const Navbar: React.FC = () => {
         </NavLinks>
         <NavLinks
           background={
-            location.pathname === "/employees" ? "#ecf0f4" : "transparent"
+            location.pathname === "/employees" ? "#dee2e6" : "transparent"
           }
           href="/employees"
         >
           <BiGroup size="1.1rem" style={{ background: "transparent" }} />
           Employees
-        </NavLinks>
-        <NavLinks
-          background={
-            location.pathname === "/removed_employees"
-              ? "#ecf0f4"
-              : "transparent"
-          }
-          href="/removed_employees"
-        >
-          <AiOutlineUsergroupDelete
-            size="1.1rem"
-            style={{ background: "transparent" }}
-          />
-          Removed Employees
         </NavLinks>
         {/* </NavbarItem> */}
       </NavbarList>

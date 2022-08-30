@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import employeesReducer from "./slice/employeeSlice";
+import userReducer from "./slice/authSlice";
 import createSagaMiddleware from "redux-saga";
 import sagas from "../store/sagas/saga";
 
@@ -8,6 +9,7 @@ const saga = createSagaMiddleware();
 export const store = configureStore({
   reducer: {
     employees: employeesReducer,
+    user: userReducer,
   },
   middleware: [saga],
 });

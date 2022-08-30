@@ -1,3 +1,5 @@
+/*eslint-disable*/
+
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import type { RootState } from "../store";

@@ -1,19 +1,11 @@
 import React, { useState } from "react";
 import { Container, DisplayArea, NormalText } from "../../globalStyles";
 import { Heading } from "../../globalStyles";
-import {
-  Search,
-  SearchArea,
-  SearchBar,
-  SearchInput,
-  ToolTips,
-  ToolTipText,
-} from "./employeeStyles";
+import { SearchArea, SearchBar, ToolTips, ToolTipText } from "./employeeStyles";
 import { IoMdAdd } from "react-icons/io";
-import { AiOutlineSearch } from "react-icons/ai";
 import Table from "./Table/Table";
 import PopUp from "./PopUp/PopUp";
-import { employee } from '../../store/slice/employeeSlice';
+import { employee } from "../../store/slice/employeeSlice";
 
 const Employee: React.FC = () => {
   const [addPopUp, setAddPopUp] = useState<boolean>(false);
@@ -44,19 +36,6 @@ const Employee: React.FC = () => {
             <NormalText fs="17px" fw="medium" color="#55555595">
               Employees
             </NormalText>
-            <SearchInput>
-              <AiOutlineSearch
-                style={{
-                  padding: "8px",
-                  background: "transparent",
-                  color: "#55555590",
-                  fontWeight: "bold",
-                }}
-                size="2rem"
-              />
-              <Search placeholder="Search" />
-              {/* input field */}
-            </SearchInput>
           </SearchArea>
           <ToolTips>
             <IoMdAdd

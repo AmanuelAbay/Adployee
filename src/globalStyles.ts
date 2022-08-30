@@ -20,6 +20,7 @@ interface TextFormat {
 
 interface scale {
   w?: string;
+  h?: string;
 }
 
 interface Props {
@@ -110,7 +111,7 @@ export const NavbarCompanyDesc = styled.div`
 
 export const NavbarLogo = styled.img<scale>`
   width: ${({ w }) => (w ? w : "6rem")};
-  height: auto;
+  height: ${({ h }) => (h ? h : "auto")};
   background: #fff;
 `;
 
@@ -184,7 +185,7 @@ export const NavLinks = styled.a<ActiveLink>`
   padding-bottom: 1rem;
 
   &:hover {
-    background: #ecf0f4;
+    background: #dee2e6;
   }
   }
 `;
@@ -212,7 +213,7 @@ export const NormalText = styled.label<TextFormat>`
     type === "email" ? "lowercaser" : "capitalize"};
   background: transparent;
   margin-top: ${({ mt }) => (mt ? mt : "")};
-  font-family: ${({ ff }) => (ff ? ff : "")}; 
+  font-family: ${({ ff }) => (ff ? ff : "")};
 `;
 
 export default GlobalStyle;
