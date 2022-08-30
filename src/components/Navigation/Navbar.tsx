@@ -64,9 +64,7 @@ const Navbar: React.FC = () => {
           Employees
         </NavLinks>
         <NavLinks
-          background={
-            location.pathname === "/employees" ? "#dee2e6" : "transparent"
-          }
+          background="transparent"
           href="/login"
           onClick={() => {
             localStorage.clear();
