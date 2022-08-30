@@ -32,7 +32,10 @@ const AdminLogin = () => {
           )
           .then((res) => {
             setError(false);
+            console.log(res.data.token);
+            const token = res.data.token;
             localStorage.setItem("user", JSON.stringify(res.data.currentUser));
+            localStorage.setItem("token", token);
             dispatch(
               Login({
                 admin: res.data.currentUser,
