@@ -17,6 +17,7 @@ import { BiGroup } from "react-icons/bi";
 import { useLocation } from "react-router-dom";
 import { useAppSelector } from "../../store/hooks";
 import { getUser } from "../../store/slice/authSlice";
+import { AiOutlineLogout } from "react-icons/ai";
 
 // https://res.cloudinary.com/amanuel/image/upload/v1661031755/addissoftware/logo-removebg-preview_i094qa.png
 const Navbar: React.FC = () => {
@@ -61,6 +62,21 @@ const Navbar: React.FC = () => {
         >
           <BiGroup size="1.1rem" style={{ background: "transparent" }} />
           Employees
+        </NavLinks>
+        <NavLinks
+          background={
+            location.pathname === "/employees" ? "#dee2e6" : "transparent"
+          }
+          href="/login"
+          onClick={() => {
+            localStorage.clear();
+          }}
+        >
+          <AiOutlineLogout
+            size="1.1rem"
+            style={{ background: "transparent" }}
+          />
+          Log Out
         </NavLinks>
         {/* </NavbarItem> */}
       </NavbarList>
