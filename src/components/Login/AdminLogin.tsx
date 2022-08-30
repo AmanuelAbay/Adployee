@@ -25,20 +25,25 @@ const AdminLogin = () => {
     e.preventDefault();
     if (credentials.username && credentials.password) {
       try {
-        await axios.post("/api/auth/login", credentials).then((res) => {
-          setError(false);
-          localStorage.setItem("user", JSON.stringify(res.data.currentUser));
-          dispatch(
-            Login({
-              admin: res.data.currentUser,
-              isLoggedin: true,
-              Loading: false,
-              error: false,
-              errorMessage: "",
-            })
-          );
-          navigate("/");
-        });
+        await axios
+          .post(
+            "https://employee--api.herokuapp.com/api/auth/login",
+            credentials
+          )
+          .then((res) => {
+            setError(false);
+            localStorage.setItem("user", JSON.stringify(res.data.currentUser));
+            dispatch(
+              Login({
+                admin: res.data.currentUser,
+                isLoggedin: true,
+                Loading: false,
+                error: false,
+                errorMessage: "",
+              })
+            );
+            navigate("/");
+          });
       } catch (errors: any) {
         dispatch(
           Login({

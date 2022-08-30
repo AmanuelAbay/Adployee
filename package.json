@@ -61,6 +61,5 @@
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.26"
-  },
-  "proxy": "https://employee--api.herokuapp.com"
+  }
 }
