@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const employeeApi = axios.create({
-  baseURL: "https://employee--api.herokuapp.com/api/",
+  baseURL: "https://adployee-backend.onrender.com/api/",
   headers: {
     Authorization: "Bearer " + localStorage.getItem("token"),
   },
